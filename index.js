@@ -10,10 +10,13 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/zboxdata", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://vishwanathnaik29:eVYTLqOrS8PcQ8GS@cluster0.a4ssc6m.mongodb.net/users",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 app.use("/api/users", require("./routes/authRoutes"));
 app.use("/api/users", require("./routes/taskRoutes"));

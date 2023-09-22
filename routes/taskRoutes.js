@@ -21,26 +21,6 @@ router.post("/:userId/tasks", async (req, res) => {
   }
 });
 
-// // Update an existing task
-// router.put("/:userId/tasks/:taskId", async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-//     const taskId = req.params.taskId;
-//     const updatedTaskDetails = req.body;
-
-//     const updatedUser = await User.findOneAndUpdate(
-//       { _id: userId, "tasks._id": taskId },
-//       { $set: { "tasks.$": updatedTaskDetails } },
-//       { new: true }
-//     );
-
-//     res.json({ tasks: updatedUser.tasks });
-//   } catch (error) {
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// });
-
-// Delete an existing task
 router.delete("/:userId/tasks/:taskId", async (req, res) => {
   try {
     const userId = req.params.userId;
