@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require("../models/User");
 const Task = require("../models/Task");
 
-// Create a new task for a user
 router.post("/:userId/tasks", async (req, res) => {
   try {
     const userId = req.params.userId;
