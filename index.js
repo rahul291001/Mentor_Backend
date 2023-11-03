@@ -11,7 +11,7 @@ app.use(cors());
 
 // Connect to MongoDB
 mongoose.connect(
-  "mongodb+srv://vishwanathnaik29:eVYTLqOrS8PcQ8GS@cluster0.a4ssc6m.mongodb.net/users",
+  "mongodb+srv://Rahul:Rahul*4321@cluster0.u7hxtcm.mongodb.net/users",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
