@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 mongoose.connect(
-  "mongodb+srv://Rahul:Rahul*4321@cluster0.u7hxtcm.mongodb.net",
+  "mongodb+srv://Rahul:Rahul*4321@cluster0.qc1uq4a.mongodb.net/",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -27,8 +27,7 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 }
 
 app.use("/api/users", require("./routes/authRoutes"));
-app.use("/api/users", require("./routes/taskRoutes"));
-app.use("/api", require("./routes/emailRoutes"));
-app.use('/api/data', require("./routes/dataRoutes"));
+app.use("/api/users", require("./routes/mentorRoutes"));
+
 
 
