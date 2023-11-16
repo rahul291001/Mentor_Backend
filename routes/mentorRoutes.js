@@ -65,24 +65,27 @@ router.put("/:userId/mentor/:mentorId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const mentorId = req.params.mentorId;
-    const updatedMentorDetails = req.body;
 
     
+    const existingMentor = await User.findOne({
+      _id: userId,
+      "mentor._id": mentorId,
+    });
+
+    if (!existingMentor) {
+      return res.status(404).json({ error: "Mentor not found for the given ID" });
+    }
+
+    const updatedMentorDetails = req.body;
+
     const updatedUser = await User.findOneAndUpdate(
-      { _id: userId },
-      {
-        $set: {
-          "mentor.$[elem]": updatedMentorDetails,
-        },
-      },
-      {
-        arrayFilters: [{ "elem._id": mentorId }],
-        new: true,
-      }
+      { _id: userId, "mentor._id": mentorId },
+      { $set: { "mentor.$": updatedMentorDetails } },
+      { new: true }
     );
 
     if (!updatedUser) {
-      return res.status(404).json({ error: "User or mentor not found" });
+      return res.status(404).json({ error: "User not found" });
     }
 
     res.json({ mentor: updatedUser.mentor });
@@ -91,6 +94,7 @@ router.put("/:userId/mentor/:mentorId", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 
 
