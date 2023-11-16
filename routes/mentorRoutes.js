@@ -65,18 +65,33 @@ router.put("/:userId/mentor/:mentorId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const mentorId = req.params.mentorId;
-    const { completionStatus } = req.body; 
+    const updatedMentorDetails = req.body;
 
+    
     const updatedUser = await User.findOneAndUpdate(
-      { _id: userId, "mentor._id": mentorId },
-      { $set: { "mentor.$.completionStatus": completionStatus } },
-      { new: true }
+      { _id: userId },
+      {
+        $set: {
+          "mentor.$[elem]": updatedMentorDetails,
+        },
+      },
+      {
+        arrayFilters: [{ "elem._id": mentorId }],
+        new: true,
+      }
     );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User or mentor not found" });
+    }
 
     res.json({ mentor: updatedUser.mentor });
   } catch (error) {
+    console.error("Error in PUT route:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+
 
 module.exports = router;
